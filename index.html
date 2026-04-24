@@ -17,20 +17,56 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@400;500;600;700;800&display=swap"
     rel="stylesheet"
   />
 
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+
+  <!-- ========= CURTAIN INTRO ========= -->
+  <div id="curtain" class="curtain-intro">
+    <div class="curtain-panel curtain-left"></div>
+    <div class="curtain-panel curtain-right"></div>
+    <div class="curtain-spotlight"></div>
+    <div class="curtain-logo">Strawberina</div>
+  </div>
+
+  <!-- ========= PETALS LAYER ========= -->
+  <div id="petals" class="petals-layer" aria-hidden="true"></div>
+
+  <!-- ========= FLOATING FRUITS ========= -->
+  <div class="floating-fruits" aria-hidden="true">
+    <span class="fruit" style="top:8%;left:4%;animation-delay:0s">🍎</span>
+    <span class="fruit" style="top:18%;right:5%;animation-delay:-2s">🍌</span>
+    <span class="fruit" style="top:38%;left:2%;animation-delay:-4s">🥕</span>
+    <span class="fruit" style="top:52%;right:3%;animation-delay:-1s">🥑</span>
+    <span class="fruit" style="top:68%;left:6%;animation-delay:-3s">🍆</span>
+    <span class="fruit" style="top:82%;right:7%;animation-delay:-5s">🥒</span>
+    <span class="fruit" style="top:92%;left:4%;animation-delay:-2.5s">🍊</span>
+    <span class="fruit" style="top:25%;left:50%;animation-delay:-1.5s">🌹</span>
+    <span class="fruit" style="top:60%;left:92%;animation-delay:-3.5s">✨</span>
+    <span class="fruit" style="top:12%;left:92%;animation-delay:-0.5s">🍓</span>
+    <span class="fruit" style="top:75%;left:48%;animation-delay:-4.5s">💋</span>
+  </div>
+
   <div class="vignette"></div>
+
+  <!-- ========= TOP MARQUEE ========= -->
+  <div class="marquee marquee-top">
+    <div class="marquee-track">
+      <span>🍓 MOST VIRAL BRAINROT ON TIKTOK 🌹 $STRAWBERINA HAS ENTERED THE CHAT 👑 THE QUEEN IS ON-CHAIN 🍓 SOLANA NATIVE ✨ COMMUNITY OWNED 🌹 NOT FINANCIAL ADVICE, JUST VIBES 💋&nbsp;</span>
+      <span>🍓 MOST VIRAL BRAINROT ON TIKTOK 🌹 $STRAWBERINA HAS ENTERED THE CHAT 👑 THE QUEEN IS ON-CHAIN 🍓 SOLANA NATIVE ✨ COMMUNITY OWNED 🌹 NOT FINANCIAL ADVICE, JUST VIBES 💋&nbsp;</span>
+    </div>
+  </div>
 
   <header class="site-header">
     <div class="container header-inner">
       <a href="#" class="brand">Strawberina</a>
       <nav class="nav" aria-label="Primary">
         <a href="#about">About</a>
+        <a href="#court">The Court</a>
         <a href="#how-to-buy">How to Buy</a>
         <a href="#tokenomics">Tokenomics</a>
       </nav>
@@ -51,23 +87,34 @@
     </div>
   </header>
 
-  <section class="hero">
+  <!-- ========= HERO ========= -->
+  <section class="hero" id="hero">
+    <div class="hero-spotlight"></div>
     <div class="hero-backdrop"></div>
     <div class="container hero-inner">
       <div class="hero-art">
         <img src="images/strawberina-hero.png" alt="Strawberina standing on a grand theater stage as the fruit audience applauds" />
         <div class="hero-glow"></div>
       </div>
-      <p class="hero-eyebrow">Solana · Memecoin · Brainrot Royalty</p>
+      <p class="hero-eyebrow">🍓 Solana · Memecoin · Brainrot Royalty 👑</p>
       <h1 class="hero-title">Strawberina</h1>
       <p class="hero-sub">The most viral brainrot on TikTok — now on-chain.</p>
+
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-icon">🔥</span><span class="stat-text">Crashed the FYP</span></div>
+        <div class="stat"><span class="stat-icon">👑</span><span class="stat-text">Brainrot Queen</span></div>
+        <div class="stat"><span class="stat-icon">💎</span><span class="stat-text">Solana Native</span></div>
+        <div class="stat"><span class="stat-icon">∞</span><span class="stat-text">Vibes Only</span></div>
+      </div>
+
       <div class="hero-cta">
-        <a href="https://pump.fun/coin/2U7FD2ySFKGgBhQP44r2ZWzUFD1yd9LqbDhjttKZpump" class="btn-primary" target="_blank" rel="noopener">Buy $STRAWBERINA</a>
-        <a href="#about" class="btn-ghost">Meet Her</a>
+        <a href="https://pump.fun/coin/2U7FD2ySFKGgBhQP44r2ZWzUFD1yd9LqbDhjttKZpump" class="btn-primary btn-xl" target="_blank" rel="noopener">Buy $STRAWBERINA</a>
+        <a href="#about" class="btn-ghost btn-xl">Meet Her</a>
       </div>
     </div>
   </section>
 
+  <!-- ========= ABOUT ========= -->
   <section id="about" class="about section">
     <div class="container">
       <div class="about-grid">
@@ -77,21 +124,84 @@
         </div>
         <div class="about-text reveal">
           <span class="eyebrow">The Thesis</span>
-          <h2>Meet Strawberina</h2>
+          <h2>She wasn't born. <em>She was rendered.</em></h2>
           <p>She is elegance. She is chaos. She is the red-dressed diva who crashed your For&nbsp;You&nbsp;Page and refused to leave.</p>
-          <p>Born in the algorithmic underworld, Strawberina rose overnight from a random AI render into full-on internet royalty — the most viral brainrot icon of the TikTok era.</p>
+          <p>Born in the algorithmic underworld, Strawberina rose overnight from a random AI render into full-on internet royalty — the most viral brainrot icon of the TikTok era. The scroll stops here.</p>
           <p>Now she takes the throne on-chain. <strong>$STRAWBERINA</strong> is the coin of the culture, the scroll, the chaos. Community-owned, tax-free, and absolutely unserious.</p>
+          <div class="about-pills">
+            <span class="pill">🍓 Memecoin</span>
+            <span class="pill">👑 Brainrot Royalty</span>
+            <span class="pill">⚡ Solana</span>
+            <span class="pill">✨ Tax-Free</span>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- ========= THE COURT ========= -->
+  <section id="court" class="court section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">The Royal Cast</span>
+        <h2>Meet The Court</h2>
+        <p class="section-sub">Every queen has her people. Strawberina's court applauds loudly and invests louder.</p>
+      </div>
+
+      <div class="court-grid">
+        <div class="courtier reveal">
+          <div class="courtier-face">🍎</div>
+          <h3>Sir Appleton</h3>
+          <p>First Minister of Shiny Things</p>
+        </div>
+        <div class="courtier reveal">
+          <div class="courtier-face">🍌</div>
+          <h3>Lord Banana</h3>
+          <p>Court Jester & Chief Slipper</p>
+        </div>
+        <div class="courtier reveal">
+          <div class="courtier-face">🥕</div>
+          <h3>Duke Carrotstein</h3>
+          <p>Captain of the Root Guard</p>
+        </div>
+        <div class="courtier reveal">
+          <div class="courtier-face">🥑</div>
+          <h3>Lord Avocadio</h3>
+          <p>Advisor on Ripe Decisions</p>
+        </div>
+        <div class="courtier reveal">
+          <div class="courtier-face">🍆</div>
+          <h3>Count Eggplantula</h3>
+          <p>Keeper of the Night Vibes</p>
+        </div>
+        <div class="courtier reveal">
+          <div class="courtier-face">🥒</div>
+          <h3>Baron Cucumberton</h3>
+          <p>Royal Poet, Cold & Composed</p>
+        </div>
+        <div class="courtier reveal">
+          <div class="courtier-face">🍊</div>
+          <h3>Lady Mandarina</h3>
+          <p>Minister of Morning Glow</p>
+        </div>
+        <div class="courtier reveal">
+          <div class="courtier-face">🍅</div>
+          <h3>Sir Tomasio</h3>
+          <p>Knight of the Red Blush</p>
+        </div>
+      </div>
+
+      <p class="court-note">👑 Long may she scroll.</p>
+    </div>
+  </section>
+
+  <!-- ========= COMMUNITY ========= -->
   <section id="community" class="community section">
     <div class="container">
       <div class="section-head">
-        <span class="eyebrow">The Court</span>
-        <h2>Join the Audience</h2>
-        <p class="section-sub">Every queen needs a kingdom. Take your seat.</p>
+        <span class="eyebrow">The Audience</span>
+        <h2>Take Your Seat</h2>
+        <p class="section-sub">The theater is open. The applause is loud. Don't miss the show.</p>
       </div>
       <div class="links-grid">
         <a href="https://x.com/strawberinax" class="link-card reveal" target="_blank" rel="noopener">
@@ -130,12 +240,13 @@
     </div>
   </section>
 
+  <!-- ========= HOW TO BUY ========= -->
   <section id="how-to-buy" class="how-to-buy section">
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">The Ritual</span>
         <h2>How to Buy $STRAWBERINA</h2>
-        <p class="section-sub">Four steps to join the brainrot court.</p>
+        <p class="section-sub">Four steps to join the brainrot court. No bouncer. No dress code.</p>
       </div>
       <div class="steps">
         <div class="step reveal">
@@ -151,20 +262,21 @@
         <div class="step reveal">
           <div class="step-num">03</div>
           <h3>Open Pump.fun</h3>
-          <p>Connect your wallet to <a href="https://pump.fun/coin/2U7FD2ySFKGgBhQP44r2ZWzUFD1yd9LqbDhjttKZpump" target="_blank" rel="noopener">the Strawberina coin page</a> on Pump.fun.</p>
+          <p>Connect your wallet to <a href="https://pump.fun/coin/2U7FD2ySFKGgBhQP44r2ZWzUFD1yd9LqbDhjttKZpump" target="_blank" rel="noopener">the Strawberina coin page</a>.</p>
         </div>
         <div class="step reveal">
           <div class="step-num">04</div>
-          <h3>Buy Strawberina</h3>
-          <p>Choose your amount, hit the swap button, and take your seat in the court.</p>
+          <h3>Ape In. Gently.</h3>
+          <p>Choose your amount, hit swap, and take your seat in the royal court. Applaud generously.</p>
         </div>
       </div>
       <div class="text-center">
-        <a href="https://pump.fun/coin/2U7FD2ySFKGgBhQP44r2ZWzUFD1yd9LqbDhjttKZpump" class="btn-primary" target="_blank" rel="noopener">Buy on Pump.fun</a>
+        <a href="https://pump.fun/coin/2U7FD2ySFKGgBhQP44r2ZWzUFD1yd9LqbDhjttKZpump" class="btn-primary btn-xl" target="_blank" rel="noopener">Buy on Pump.fun →</a>
       </div>
     </div>
   </section>
 
+  <!-- ========= TOKENOMICS ========= -->
   <section id="tokenomics" class="tokenomics section">
     <div class="container">
       <div class="section-head">
@@ -175,7 +287,7 @@
       <div class="tokenomics-grid">
         <div class="tok-card reveal">
           <span class="tok-label">Total Supply</span>
-          <span class="tok-value">1,000,000,000</span>
+          <span class="tok-value" data-count="1000000000" data-suffix="">0</span>
         </div>
         <div class="tok-card reveal">
           <span class="tok-label">Network</span>
@@ -201,6 +313,15 @@
     </div>
   </section>
 
+  <!-- ========= BOTTOM MARQUEE ========= -->
+  <div class="marquee marquee-bottom">
+    <div class="marquee-track marquee-reverse">
+      <span>👑 LONG MAY SHE SCROLL 🌹 STRAWBERINA FOREVER 🍓 THE FYP IS HER KINGDOM ✨ BRAINROT IS A LIFESTYLE 💋 ALL HAIL THE BERRY QUEEN 🌹&nbsp;</span>
+      <span>👑 LONG MAY SHE SCROLL 🌹 STRAWBERINA FOREVER 🍓 THE FYP IS HER KINGDOM ✨ BRAINROT IS A LIFESTYLE 💋 ALL HAIL THE BERRY QUEEN 🌹&nbsp;</span>
+    </div>
+  </div>
+
+  <!-- ========= FOOTER ========= -->
   <footer class="site-footer">
     <div class="container footer-inner">
       <p class="brand-footer">Strawberina</p>
@@ -213,7 +334,7 @@
         </a>
       </div>
       <p class="disclaimer">$STRAWBERINA is a memecoin with no intrinsic value or expectation of financial return. For entertainment purposes only. Not financial advice. DYOR.</p>
-      <p class="copy">© 2026 Strawberina. All applause reserved.</p>
+      <p class="copy">© 2026 Strawberina. All applause reserved. 🌹</p>
     </div>
   </footer>
 
