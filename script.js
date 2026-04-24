@@ -86,6 +86,153 @@ if (petalsLayer && !reduceMotion) {
   setInterval(spawnPetal, 1100);
 }
 
+// ========= QUIZ: WHICH ISLANDER ARE YOU? =========
+const QUIZ_QUESTIONS = [
+  {
+    q: "It's 2am in the villa. Where are you?",
+    a: [
+      { t: "Whispering secrets in the kitchen with my favorite", i: "Kiwilo" },
+      { t: "Crying in the closet — nobody knows yet", i: "Orangelo" },
+      { t: "Starting chaos in the bedroom, loudly", i: "Pinapina" },
+      { t: "Asleep. Beauty sleep > drama.", i: "Strawberina" },
+    ]
+  },
+  {
+    q: "What's your red flag in love?",
+    a: [
+      { t: "I'm always 'just friends' with multiple people", i: "Watermelina" },
+      { t: "I overthink every text for six hours", i: "Orangelo" },
+      { t: "I keep receipts on EVERYTHING", i: "Mangella" },
+      { t: "I leave you on read if you're boring", i: "Coconick" },
+    ]
+  },
+  {
+    q: "Pick your villa uniform:",
+    a: [
+      { t: "Red dress, black heels, main character forever", i: "Strawberina" },
+      { t: "Bikini, tan, salt-water hair", i: "Coconick" },
+      { t: "A matching set I designed myself", i: "Mangella" },
+      { t: "Loud print. Bigger energy.", i: "Pinapina" },
+    ]
+  },
+  {
+    q: "Your love language is:",
+    a: [
+      { t: "Words of affirmation (and mild stalking)", i: "Orangelo" },
+      { t: "Quality time (preferably in the hot tub)", i: "Kiwilo" },
+      { t: "Gift giving — I made it just for you", i: "Mangella" },
+      { t: "Physical touch (I bite, sometimes)", i: "Bananito" },
+    ]
+  },
+  {
+    q: "You get dumped from the villa. How do you leave?",
+    a: [
+      { t: "Sobbing monologue. Iconic exit. Camera zooms.", i: "Orangelo" },
+      { t: "Middle finger. No tears. Gone in 60 seconds.", i: "Pinapina" },
+      { t: "Quiet goodbye. Mom tears. Everyone cries with me.", i: "Cherrita" },
+      { t: "I'll be back in seven days. Plot loading.", i: "Bananito" },
+    ]
+  }
+];
+
+const ISLANDERS = {
+  Bananito:    { emoji: "🍌", desc: "You're Bananito — the dramatic underdog with plot armor. Dumped, but never forgotten. You'll be back in seven days with a vengeance." },
+  Watermelina: { emoji: "🍉", desc: "You're Watermelina — the center of every love triangle and every group chat. Chaos is your love language. The villa doesn't run without you." },
+  Mangella:    { emoji: "🥭", desc: "You're Mangella — creative, composed, always perfectly dressed. You design the villa's vibe, its outfits, and occasionally its drama." },
+  Kiwilo:      { emoji: "🥝", desc: "You're Kiwilo — the soft romantic with the hospitality smile. Everyone catches feelings around you. You catch flights." },
+  Orangelo:    { emoji: "🍊", desc: "You're Orangelo — the emotional one who said the quiet part loud. Confessed. Got dumped. Became a legend. Heart on sleeve, sleeve on fire." },
+  Coconick:    { emoji: "🥥", desc: "You're Coconick — laidback Aussie energy with a punch in reserve. You surf villas, vibes, and the occasional confrontation." },
+  Pinapina:    { emoji: "🍍", desc: "You're Pinapina — NYC energy in a fruit bowl. Loud, iconic, zero filter, maximum main character. The villa is lucky to have you." },
+  Cherrita:    { emoji: "🍒", desc: "You're Cherrita — the villa mom. Wise, warm, wouldn't hurt a fly. Left in episode 12 and broke everyone's heart. Still the blueprint." },
+  Strawberina: { emoji: "🍓", desc: "You're Strawberina herself — the red-dressed diva, the queen of the FYP, the main character of brainrot. Long may you scroll, your majesty." },
+};
+
+(function initQuiz() {
+  const card = document.getElementById('quiz-card');
+  if (!card) return;
+
+  const screens = {
+    intro: card.querySelector('[data-screen="intro"]'),
+    question: card.querySelector('[data-screen="question"]'),
+    result: card.querySelector('[data-screen="result"]'),
+  };
+  const questionText = document.getElementById('quiz-question-text');
+  const answersBox = document.getElementById('quiz-answers');
+  const progressFill = document.getElementById('quiz-progress-fill');
+  const stepNum = document.getElementById('quiz-step-num');
+  const resultEmoji = document.getElementById('quiz-result-emoji');
+  const resultName = document.getElementById('quiz-result-name');
+  const resultDesc = document.getElementById('quiz-result-desc');
+  const shareBtn = document.getElementById('quiz-share');
+
+  let step = 0;
+  const scores = {};
+
+  function show(name) {
+    Object.entries(screens).forEach(([k, el]) => el.classList.toggle('hidden', k !== name));
+  }
+
+  function renderQuestion() {
+    const q = QUIZ_QUESTIONS[step];
+    questionText.textContent = q.q;
+    stepNum.textContent = step + 1;
+    progressFill.style.width = `${((step + 1) / QUIZ_QUESTIONS.length) * 100}%`;
+    answersBox.innerHTML = '';
+
+    q.a.forEach((ans) => {
+      const btn = document.createElement('button');
+      btn.className = 'quiz-answer';
+      btn.type = 'button';
+      btn.textContent = ans.t;
+      btn.addEventListener('click', () => {
+        btn.classList.add('selected');
+        scores[ans.i] = (scores[ans.i] || 0) + 1;
+        setTimeout(() => {
+          step++;
+          if (step < QUIZ_QUESTIONS.length) {
+            renderQuestion();
+          } else {
+            renderResult();
+          }
+        }, 260);
+      });
+      answersBox.appendChild(btn);
+    });
+  }
+
+  function renderResult() {
+    let winner = 'Strawberina';
+    let max = -1;
+    Object.entries(scores).forEach(([name, score]) => {
+      if (score > max) { winner = name; max = score; }
+    });
+
+    const islander = ISLANDERS[winner];
+    resultEmoji.textContent = islander.emoji;
+    resultName.textContent = winner;
+    resultDesc.textContent = islander.desc;
+
+    const url = encodeURIComponent(window.location.origin + '#quiz');
+    const text = encodeURIComponent(`I took the Strawberina Villa Test. I got ${winner} ${islander.emoji}\n\nWhich islander are YOU? 🍓👑`);
+    shareBtn.href = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+
+    show('result');
+  }
+
+  document.getElementById('quiz-start').addEventListener('click', () => {
+    step = 0;
+    Object.keys(scores).forEach((k) => delete scores[k]);
+    renderQuestion();
+    show('question');
+  });
+
+  document.getElementById('quiz-restart').addEventListener('click', () => {
+    step = 0;
+    Object.keys(scores).forEach((k) => delete scores[k]);
+    show('intro');
+  });
+})();
+
 // ========= LIVE STATS (DexScreener API) =========
 const PAIR_ADDRESS = '89QVuyoih5N1Quzu6GoLHbxFc9ZxCnGtwo7QbrFwbcKX';
 const STATS_API = `https://api.dexscreener.com/latest/dex/pairs/solana/${PAIR_ADDRESS}`;

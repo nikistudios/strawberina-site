@@ -59,9 +59,9 @@
       <nav class="nav" aria-label="Primary">
         <a href="#about">About</a>
         <a href="#court">The Cast</a>
+        <a href="#quiz">Quiz</a>
         <a href="#chart">Chart</a>
         <a href="#how-to-buy">How to Buy</a>
-        <a href="#tokenomics">Tokenomics</a>
       </nav>
       <div class="header-actions">
         <a href="https://x.com/strawberinax" target="_blank" rel="noopener" class="icon-btn" aria-label="X (Twitter)">
@@ -184,6 +184,52 @@
       </div>
 
       <p class="court-note">👑 Long may she scroll.</p>
+    </div>
+  </section>
+
+  <!-- ========= QUIZ ========= -->
+  <section id="quiz" class="quiz-section section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">The Villa Test</span>
+        <h2>Which Islander Are You?</h2>
+        <p class="section-sub">Five questions. One fruit. Infinite brainrot. Share the result and make your group chat jealous.</p>
+      </div>
+
+      <div class="quiz-card reveal" id="quiz-card">
+        <!-- Intro screen -->
+        <div class="quiz-screen quiz-intro" data-screen="intro">
+          <div class="quiz-intro-emoji">🌹</div>
+          <h3>Ready to meet your inner fruit?</h3>
+          <p>Five quick questions. One villa twin. Flex it forever.</p>
+          <button class="btn-primary btn-xl" id="quiz-start">Start The Test</button>
+        </div>
+
+        <!-- Question screen -->
+        <div class="quiz-screen quiz-question hidden" data-screen="question">
+          <div class="quiz-progress">
+            <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quiz-progress-fill"></div></div>
+            <p class="quiz-step">Question <span id="quiz-step-num">1</span> / 5</p>
+          </div>
+          <h3 class="quiz-question-text" id="quiz-question-text">…</h3>
+          <div class="quiz-answers" id="quiz-answers"></div>
+        </div>
+
+        <!-- Result screen -->
+        <div class="quiz-screen quiz-result hidden" data-screen="result">
+          <p class="quiz-result-eyebrow">You matched with</p>
+          <div class="quiz-result-emoji" id="quiz-result-emoji">🍌</div>
+          <h3 class="quiz-result-name" id="quiz-result-name">Bananito</h3>
+          <p class="quiz-result-desc" id="quiz-result-desc">…</p>
+          <div class="quiz-result-actions">
+            <a href="#" class="btn-primary" id="quiz-share" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" style="margin-right:4px"><path d="M18.244 2H21l-6.54 7.47L22 22h-6.77l-4.77-6.23L4.8 22H2l7.02-8.02L2 2h6.91l4.3 5.7L18.244 2Zm-1.18 18h1.9L7.03 4H5.03l12.034 16Z"/></svg>
+              Share on X
+            </a>
+            <button class="btn-ghost" id="quiz-restart">Take Again</button>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
