@@ -271,9 +271,10 @@ p { margin: 0 0 1em; color: var(--ink-dim); }
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  line-height: 1;
+  line-height: 1.35;
+  padding: 6px 4px 6px 10px;
   flex-shrink: 0;
-  text-shadow: 0 0 40px rgba(212,175,55,0.3);
+  overflow: visible;
 }
 
 .nav {
@@ -804,6 +805,8 @@ h2 strong {
 .brand-footer {
   font-family: 'Great Vibes', cursive;
   font-size: 44px;
+  line-height: 1.4;
+  padding: 8px 10px;
   background: linear-gradient(135deg, var(--gold-bright), var(--gold-dim));
   -webkit-background-clip: text;
   background-clip: text;
