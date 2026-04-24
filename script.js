@@ -1,11 +1,3 @@
-// ========= CURTAIN INTRO =========
-window.addEventListener('load', () => {
-  const curtain = document.getElementById('curtain');
-  if (!curtain) return;
-  setTimeout(() => curtain.classList.add('closed'), 1600);
-  setTimeout(() => curtain.remove(), 3400);
-});
-
 // ========= COPY CONTRACT =========
 document.querySelectorAll('.btn-copy').forEach((btn) => {
   btn.addEventListener('click', async () => {
