@@ -136,15 +136,15 @@ const QUIZ_QUESTIONS = [
 ];
 
 const ISLANDERS = {
-  Bananito:    { emoji: "🍌", desc: "You're Bananito — the dramatic underdog with plot armor. Dumped, but never forgotten. You'll be back in seven days with a vengeance." },
-  Watermelina: { emoji: "🍉", desc: "You're Watermelina — the center of every love triangle and every group chat. Chaos is your love language. The villa doesn't run without you." },
-  Mangella:    { emoji: "🥭", desc: "You're Mangella — creative, composed, always perfectly dressed. You design the villa's vibe, its outfits, and occasionally its drama." },
-  Kiwilo:      { emoji: "🥝", desc: "You're Kiwilo — the soft romantic with the hospitality smile. Everyone catches feelings around you. You catch flights." },
-  Orangelo:    { emoji: "🍊", desc: "You're Orangelo — the emotional one who said the quiet part loud. Confessed. Got dumped. Became a legend. Heart on sleeve, sleeve on fire." },
-  Coconick:    { emoji: "🥥", desc: "You're Coconick — laidback Aussie energy with a punch in reserve. You surf villas, vibes, and the occasional confrontation." },
-  Pinapina:    { emoji: "🍍", desc: "You're Pinapina — NYC energy in a fruit bowl. Loud, iconic, zero filter, maximum main character. The villa is lucky to have you." },
-  Cherrita:    { emoji: "🍒", desc: "You're Cherrita — the villa mom. Wise, warm, wouldn't hurt a fly. Left in episode 12 and broke everyone's heart. Still the blueprint." },
-  Strawberina: { emoji: "🍓", desc: "You're Strawberina herself — the red-dressed diva, the queen of the FYP, the main character of brainrot. Long may you scroll, your majesty." },
+  Bananito:    { emoji: "🍌", img: "images/islanders/bananito.png",    desc: "You're Bananito — the dramatic underdog with plot armor. Dumped, but never forgotten. You'll be back in seven days with a vengeance." },
+  Watermelina: { emoji: "🍉", img: "images/islanders/watermelina.png", desc: "You're Watermelina — the center of every love triangle and every group chat. Chaos is your love language. The villa doesn't run without you." },
+  Mangella:    { emoji: "🥭", img: "images/islanders/mangella.png",    desc: "You're Mangella — creative, composed, always perfectly dressed. You design the villa's vibe, its outfits, and occasionally its drama." },
+  Kiwilo:      { emoji: "🥝", img: "images/islanders/kiwilo.png",      desc: "You're Kiwilo — the soft romantic with the hospitality smile. Everyone catches feelings around you. You catch flights." },
+  Orangelo:    { emoji: "🍊", img: "images/islanders/orangelo.png",    desc: "You're Orangelo — the emotional one who said the quiet part loud. Confessed. Got dumped. Became a legend. Heart on sleeve, sleeve on fire." },
+  Coconick:    { emoji: "🥥", img: "images/islanders/coconick.png",    desc: "You're Coconick — laidback Aussie energy with a punch in reserve. You surf villas, vibes, and the occasional confrontation." },
+  Pinapina:    { emoji: "🍍", img: "images/islanders/pinapina.png",    desc: "You're Pinapina — NYC energy in a fruit bowl. Loud, iconic, zero filter, maximum main character. The villa is lucky to have you." },
+  Cherrita:    { emoji: "🍒", img: "images/islanders/cherrita.png",    desc: "You're Cherrita — the villa mom. Wise, warm, wouldn't hurt a fly. Left in episode 12 and broke everyone's heart. Still the blueprint." },
+  Strawberina: { emoji: "🍓", img: "images/islanders/strawberina.png", desc: "You're Strawberina herself — the red-dressed diva, the queen of the FYP, the main character of brainrot. Long may you scroll, your majesty." },
 };
 
 (function initQuiz() {
@@ -161,6 +161,7 @@ const ISLANDERS = {
   const progressFill = document.getElementById('quiz-progress-fill');
   const stepNum = document.getElementById('quiz-step-num');
   const resultEmoji = document.getElementById('quiz-result-emoji');
+  const resultImg = document.getElementById('quiz-result-img');
   const resultName = document.getElementById('quiz-result-name');
   const resultDesc = document.getElementById('quiz-result-desc');
   const shareBtn = document.getElementById('quiz-share');
@@ -208,9 +209,28 @@ const ISLANDERS = {
     });
 
     const islander = ISLANDERS[winner];
-    resultEmoji.textContent = islander.emoji;
     resultName.textContent = winner;
     resultDesc.textContent = islander.desc;
+
+    // Prefer image; gracefully fall back to emoji if it fails to load
+    resultEmoji.textContent = islander.emoji;
+    if (islander.img) {
+      const probe = new Image();
+      probe.onload = () => {
+        resultImg.src = islander.img;
+        resultImg.alt = winner;
+        resultImg.style.display = 'block';
+        resultEmoji.style.display = 'none';
+      };
+      probe.onerror = () => {
+        resultImg.style.display = 'none';
+        resultEmoji.style.display = 'block';
+      };
+      probe.src = islander.img;
+    } else {
+      resultImg.style.display = 'none';
+      resultEmoji.style.display = 'block';
+    }
 
     const url = encodeURIComponent(window.location.origin + '#quiz');
     const text = encodeURIComponent(`I took the Strawberina Villa Test. I got ${winner} ${islander.emoji}\n\nWhich islander are YOU? 🍓👑`);
