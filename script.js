@@ -86,6 +86,17 @@ if (petalsLayer && !reduceMotion) {
   setInterval(spawnPetal, 1100);
 }
 
+// ========= COURTIER IMAGE FALLBACK =========
+document.querySelectorAll('.courtier-face img').forEach((img) => {
+  img.addEventListener('error', () => {
+    const parent = img.parentElement;
+    if (!parent) return;
+    const emoji = parent.dataset.emoji || '🍓';
+    img.remove();
+    parent.textContent = emoji;
+  });
+});
+
 // ========= QUIZ: WHICH ISLANDER ARE YOU? =========
 const QUIZ_QUESTIONS = [
   {
