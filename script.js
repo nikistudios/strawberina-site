@@ -243,8 +243,9 @@ const ISLANDERS = {
       resultEmoji.style.display = 'block';
     }
 
-    const url = encodeURIComponent(window.location.origin + '#quiz');
-    const text = encodeURIComponent(`I took the Strawberina Villa Test. I got ${winner} ${islander.emoji}\n\nWhich islander are YOU? 🍓👑`);
+    const slug = winner.toLowerCase();
+    const url = encodeURIComponent(`${window.location.origin}/result/${slug}.html`);
+    const text = encodeURIComponent(`I got ${winner} ${islander.emoji}\nWhich one are you?`);
     shareBtn.href = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
 
     show('result');
