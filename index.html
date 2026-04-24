@@ -59,6 +59,7 @@
       <nav class="nav" aria-label="Primary">
         <a href="#about">About</a>
         <a href="#court">The Cast</a>
+        <a href="#chart">Chart</a>
         <a href="#how-to-buy">How to Buy</a>
         <a href="#tokenomics">Tokenomics</a>
       </nav>
@@ -228,6 +229,57 @@
           <span class="link-arrow">→</span>
         </a>
       </div>
+    </div>
+  </section>
+
+  <!-- ========= LIVE CHART & STATS ========= -->
+  <section id="chart" class="chart-section section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Live From The Stage</span>
+        <h2>The Chart Room</h2>
+        <p class="section-sub">Real-time market data straight from DexScreener. No cap — just candles.</p>
+      </div>
+
+      <div class="stats-bar" id="stats-bar">
+        <div class="stat-cell loading reveal">
+          <span class="stat-cell-label">Price</span>
+          <span class="stat-cell-value" data-stat="price">—</span>
+        </div>
+        <div class="stat-cell loading reveal">
+          <span class="stat-cell-label">24h Change</span>
+          <span class="stat-cell-value" data-stat="change24h">—</span>
+        </div>
+        <div class="stat-cell loading reveal">
+          <span class="stat-cell-label">Market Cap</span>
+          <span class="stat-cell-value" data-stat="marketCap">—</span>
+        </div>
+        <div class="stat-cell loading reveal">
+          <span class="stat-cell-label">24h Volume</span>
+          <span class="stat-cell-value" data-stat="volume24h">—</span>
+        </div>
+        <div class="stat-cell loading reveal">
+          <span class="stat-cell-label">Liquidity</span>
+          <span class="stat-cell-value" data-stat="liquidity">—</span>
+        </div>
+        <div class="stat-cell loading reveal">
+          <span class="stat-cell-label">24h Txns</span>
+          <span class="stat-cell-value" data-stat="txns24h">—</span>
+        </div>
+      </div>
+
+      <div class="chart-wrapper reveal">
+        <iframe
+          src="https://dexscreener.com/solana/89QVuyoih5N1Quzu6GoLHbxFc9ZxCnGtwo7QbrFwbcKX?embed=1&theme=dark&trades=0&info=0"
+          class="chart-iframe"
+          title="Strawberina live price chart"
+          loading="lazy">
+        </iframe>
+      </div>
+
+      <p class="chart-note">
+        Chart by <a href="https://dexscreener.com/solana/89QVuyoih5N1Quzu6GoLHbxFc9ZxCnGtwo7QbrFwbcKX" target="_blank" rel="noopener">DexScreener</a> · Stats refresh every 30 seconds · <span id="last-update">initializing…</span> 🌹
+      </p>
     </div>
   </section>
 

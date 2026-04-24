@@ -86,6 +86,92 @@ if (petalsLayer && !reduceMotion) {
   setInterval(spawnPetal, 1100);
 }
 
+// ========= LIVE STATS (DexScreener API) =========
+const PAIR_ADDRESS = '89QVuyoih5N1Quzu6GoLHbxFc9ZxCnGtwo7QbrFwbcKX';
+const STATS_API = `https://api.dexscreener.com/latest/dex/pairs/solana/${PAIR_ADDRESS}`;
+const REFRESH_MS = 30_000;
+
+function formatUsd(n) {
+  if (n == null || isNaN(n)) return '—';
+  const num = Number(n);
+  if (num >= 1_000_000_000) return '$' + (num / 1_000_000_000).toFixed(2) + 'B';
+  if (num >= 1_000_000) return '$' + (num / 1_000_000).toFixed(2) + 'M';
+  if (num >= 1_000) return '$' + (num / 1_000).toFixed(2) + 'K';
+  if (num < 0.0001) return '$' + num.toFixed(9);
+  if (num < 0.01) return '$' + num.toFixed(7);
+  if (num < 1) return '$' + num.toFixed(5);
+  return '$' + num.toFixed(2);
+}
+
+function formatNum(n) {
+  if (n == null || isNaN(n)) return '—';
+  return Number(n).toLocaleString('en-US');
+}
+
+function setStat(key, value) {
+  const el = document.querySelector(`[data-stat="${key}"]`);
+  if (!el) return;
+  const prev = el.textContent;
+  el.textContent = value;
+  el.parentElement.classList.remove('loading');
+  if (prev !== '—' && prev !== value) {
+    el.classList.remove('flash');
+    void el.offsetWidth;
+    el.classList.add('flash');
+  }
+}
+
+function setStatChange(key, value) {
+  const el = document.querySelector(`[data-stat="${key}"]`);
+  if (!el) return;
+  const num = Number(value || 0);
+  const sign = num >= 0 ? '+' : '';
+  el.textContent = `${sign}${num.toFixed(2)}%`;
+  el.classList.remove('positive', 'negative');
+  el.classList.add(num >= 0 ? 'positive' : 'negative');
+  el.parentElement.classList.remove('loading');
+}
+
+async function fetchStats() {
+  try {
+    const res = await fetch(STATS_API, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    const pair = data.pair || (Array.isArray(data.pairs) && data.pairs[0]);
+    if (!pair) throw new Error('no pair in response');
+
+    const price = parseFloat(pair.priceUsd);
+    const change24h = pair.priceChange?.h24;
+    const marketCap = pair.marketCap || pair.fdv;
+    const volume24h = pair.volume?.h24;
+    const liquidity = pair.liquidity?.usd;
+    const buys24h = pair.txns?.h24?.buys || 0;
+    const sells24h = pair.txns?.h24?.sells || 0;
+
+    setStat('price', formatUsd(price));
+    setStatChange('change24h', change24h);
+    setStat('marketCap', formatUsd(marketCap));
+    setStat('volume24h', formatUsd(volume24h));
+    setStat('liquidity', formatUsd(liquidity));
+    setStat('txns24h', formatNum(buys24h + sells24h));
+
+    const lu = document.getElementById('last-update');
+    if (lu) {
+      const now = new Date();
+      lu.textContent = `updated ${now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}`;
+    }
+  } catch (err) {
+    console.warn('[stats]', err);
+    const lu = document.getElementById('last-update');
+    if (lu) lu.textContent = 'retrying…';
+  }
+}
+
+if (document.getElementById('stats-bar')) {
+  fetchStats();
+  setInterval(fetchStats, REFRESH_MS);
+}
+
 // ========= NUMBER COUNTER =========
 const countEls = document.querySelectorAll('[data-count]');
 const countObserver = new IntersectionObserver(
