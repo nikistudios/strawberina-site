@@ -1,161 +1,59 @@
-// ========= COPY CONTRACT =========
-document.querySelectorAll('.btn-copy').forEach((btn) => {
-  btn.addEventListener('click', async () => {
-    const text = btn.dataset.copy;
-    if (!text) return;
-    try {
-      await navigator.clipboard.writeText(text);
-      btn.classList.add('copied');
-      btn.textContent = 'Copied!';
-      showToast('Contract copied 👑');
-      setTimeout(() => {
-        btn.classList.remove('copied');
-        btn.textContent = 'Copy';
-      }, 1600);
-    } catch {
-      showToast('Copy failed — select manually');
-    }
-  });
-});
-
-// ========= TOAST =========
-const toast = document.getElementById('toast');
-let toastTimer;
-function showToast(msg) {
-  if (!toast) return;
-  toast.textContent = msg;
-  toast.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toast.classList.remove('show'), 2000);
-}
-
-// ========= REVEAL ON SCROLL =========
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('in');
-        observer.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
-);
-document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
-
-// ========= HERO SPOTLIGHT FOLLOWS MOUSE =========
-const hero = document.getElementById('hero');
-if (hero && window.matchMedia('(hover: hover)').matches) {
-  hero.addEventListener('mousemove', (e) => {
-    const rect = hero.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    hero.style.setProperty('--mx', `${x}%`);
-    hero.style.setProperty('--my', `${y}%`);
-  });
-}
-
-// ========= FALLING PETALS =========
-const petalsLayer = document.getElementById('petals');
-const PETAL_GLYPHS = ['🌹', '🌸', '💮', '❀', '🍓'];
-const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-function spawnPetal() {
-  if (!petalsLayer || reduceMotion) return;
-  const petal = document.createElement('span');
-  petal.className = 'petal';
-  petal.textContent = PETAL_GLYPHS[Math.floor(Math.random() * PETAL_GLYPHS.length)];
-  const startX = Math.random() * 100;
-  const drift = (Math.random() - 0.5) * 240;
-  const duration = 8 + Math.random() * 8;
-  const size = 14 + Math.random() * 16;
-  petal.style.left = `${startX}%`;
-  petal.style.fontSize = `${size}px`;
-  petal.style.setProperty('--drift', `${drift}px`);
-  petal.style.animationDuration = `${duration}s`;
-  petalsLayer.appendChild(petal);
-  setTimeout(() => petal.remove(), duration * 1000 + 500);
-}
-
-if (petalsLayer && !reduceMotion) {
-  // Initial burst
-  for (let i = 0; i < 6; i++) {
-    setTimeout(spawnPetal, i * 400);
-  }
-  // Steady rain
-  setInterval(spawnPetal, 1100);
-}
-
-// ========= COURTIER IMAGE FALLBACK =========
-document.querySelectorAll('.courtier-face img').forEach((img) => {
-  img.addEventListener('error', () => {
-    const parent = img.parentElement;
-    if (!parent) return;
-    const emoji = parent.dataset.emoji || '🍓';
-    img.remove();
-    parent.textContent = emoji;
-  });
-});
-
-// ========= QUIZ: WHICH ISLANDER ARE YOU? =========
+// ========= QUIZ: WHICH STRAWBERINA ARE YOU? =========
 const QUIZ_QUESTIONS = [
   {
-    q: "It's 2am in the villa. Where are you?",
+    q: "It's Friday night. You are:",
     a: [
-      { t: "Whispering secrets in the kitchen with my favorite", i: "Kiwilo" },
-      { t: "Crying in the closet — nobody knows yet", i: "Orangelo" },
-      { t: "Starting chaos in the bedroom, loudly", i: "Pinapina" },
-      { t: "Asleep. Beauty sleep > drama.", i: "Strawberina" },
+      { t: "Smoking, vibing, time isn't real", i: "stoner" },
+      { t: "Studying for an exam nobody assigned", i: "nerd" },
+      { t: "Posing in the mirror for an hour", i: "sexy" },
+      { t: "Dancing on a yacht someone else paid for", i: "rich" },
     ]
   },
   {
-    q: "What's your red flag in love?",
+    q: "Your relationship with money:",
     a: [
-      { t: "I'm always 'just friends' with multiple people", i: "Watermelina" },
-      { t: "I overthink every text for six hours", i: "Orangelo" },
-      { t: "I keep receipts on EVERYTHING", i: "Mangella" },
-      { t: "I leave you on read if you're boring", i: "Coconick" },
+      { t: "What money? Vibes are free.", i: "broke" },
+      { t: "Daddy's credit card has no limit", i: "rich" },
+      { t: "I'd take yours and you'd thank me", i: "savage" },
+      { t: "I'll trade you anything for a bag", i: "stoner" },
     ]
   },
   {
-    q: "Pick your villa uniform:",
+    q: "Your superpower is:",
     a: [
-      { t: "Red dress, black heels, main character forever", i: "Strawberina" },
-      { t: "Bikini, tan, salt-water hair", i: "Coconick" },
-      { t: "A matching set I designed myself", i: "Mangella" },
-      { t: "Loud print. Bigger energy.", i: "Pinapina" },
+      { t: "Calculating tip in 0.2 seconds", i: "nerd" },
+      { t: "Making the entire room nervous", i: "sexy" },
+      { t: "Survival instincts of a feral cat", i: "broke" },
+      { t: "People are scared to look at me", i: "savage" },
     ]
   },
   {
-    q: "Your love language is:",
+    q: "Your morning routine:",
     a: [
-      { t: "Words of affirmation (and mild stalking)", i: "Orangelo" },
-      { t: "Quality time (preferably in the hot tub)", i: "Kiwilo" },
-      { t: "Gift giving — I made it just for you", i: "Mangella" },
-      { t: "Physical touch (I bite, sometimes)", i: "Bananito" },
+      { t: "Wake and bake. Coffee is for losers.", i: "stoner" },
+      { t: "Read three chapters before sunrise", i: "nerd" },
+      { t: "Selfies, perfume, lip gloss, cry", i: "sexy" },
+      { t: "Champagne, four phone calls, private jet", i: "rich" },
     ]
   },
   {
-    q: "You get dumped from the villa. How do you leave?",
+    q: "Your villain origin story:",
     a: [
-      { t: "Sobbing monologue. Iconic exit. Camera zooms.", i: "Orangelo" },
-      { t: "Middle finger. No tears. Gone in 60 seconds.", i: "Pinapina" },
-      { t: "Quiet goodbye. Mom tears. Everyone cries with me.", i: "Cherrita" },
-      { t: "I'll be back in seven days. Plot loading.", i: "Bananito" },
+      { t: "They told me to 'go back to school'", i: "nerd" },
+      { t: "They mocked my outfit (it was a Kmart fit)", i: "broke" },
+      { t: "They tried to play me. Once.", i: "savage" },
+      { t: "They said they could 'fix' me", i: "stoner" },
     ]
   }
 ];
 
-const ISLANDERS = {
-  Bananito:    { emoji: "🍌", img: "images/islanders/bananito.png",    desc: "You're Bananito — the dramatic underdog with plot armor. Dumped, but never forgotten. You'll be back in seven days with a vengeance." },
-  Watermelina: { emoji: "🍉", img: "images/islanders/watermelina.png", desc: "You're Watermelina — the center of every love triangle and every group chat. Chaos is your love language. The villa doesn't run without you." },
-  Mangella:    { emoji: "🥭", img: "images/islanders/mangella.png",    desc: "You're Mangella — creative, composed, always perfectly dressed. You design the villa's vibe, its outfits, and occasionally its drama." },
-  Kiwilo:      { emoji: "🥝", img: "images/islanders/kiwilo.png",      desc: "You're Kiwilo — the soft romantic with the hospitality smile. Everyone catches feelings around you. You catch flights." },
-  Orangelo:    { emoji: "🍊", img: "images/islanders/orangelo.png",    desc: "You're Orangelo — the emotional one who said the quiet part loud. Confessed. Got dumped. Became a legend. Heart on sleeve, sleeve on fire." },
-  Coconick:    { emoji: "🥥", img: "images/islanders/coconick.png",    desc: "You're Coconick — laidback Aussie energy with a punch in reserve. You surf villas, vibes, and the occasional confrontation." },
-  Pinapina:    { emoji: "🍍", img: "images/islanders/pinapina.png",    desc: "You're Pinapina — NYC energy in a fruit bowl. Loud, iconic, zero filter, maximum main character. The villa is lucky to have you." },
-  Cherrita:    { emoji: "🍒", img: "images/islanders/cherrita.png",    desc: "You're Cherrita — the villa mom. Wise, warm, wouldn't hurt a fly. Left in episode 12 and broke everyone's heart. Still the blueprint." },
-  Strawberina: { emoji: "🍓", img: "images/islanders/strawberina.png", desc: "You're Strawberina herself — the red-dressed diva, the queen of the FYP, the main character of brainrot. Long may you scroll, your majesty." },
+const STRAWBERINA_VARIANTS = {
+  stoner:      { fullName: "Stoner Strawberina",     emoji: "🚬", img: "images/variants/stoner.png",      desc: "Permanently in the cloud. Lipton is mid — pass the bowl. You think the FYP is a religion and the algorithm is your god." },
+  nerd:        { fullName: "Nerd Strawberina",       emoji: "🤓", img: "images/variants/nerd.png",        desc: "4.0 GPA in brainrot studies. Reads the whitepaper twice. Will explain the candle pattern to you, unsolicited." },
+  sexy:        { fullName: "Sexy Strawberina",       emoji: "💋", img: "images/variants/sexy.png",        desc: "Walks slow because the camera needs to keep up. You don't slide into DMs — DMs slide into you." },
+  broke:       { fullName: "Broke Strawberina",      emoji: "🥲", img: "images/variants/broke.png",       desc: "Three coins to your name and they're all $STRAWBERINA. Noodles for dinner, big dreams for dessert. Holding forever." },
+  rich:        { fullName: "Rich Strawberina",       emoji: "💅", img: "images/variants/rich.png",        desc: "Bought the dip with daddy's allowance. Champagne for breakfast. The valet knows your name and your zodiac." },
+  savage:      { fullName: "Savage Strawberina",     emoji: "😈", img: "images/variants/savage.png",      desc: "Doesn't text first. Doesn't text second. Has receipts, screenshots, and a plan. Don't test the queen." },
 };
 
 (function initQuiz() {
@@ -213,23 +111,22 @@ const ISLANDERS = {
   }
 
   function renderResult() {
-    let winner = 'Strawberina';
+    let winner = 'sexy';
     let max = -1;
     Object.entries(scores).forEach(([name, score]) => {
       if (score > max) { winner = name; max = score; }
     });
 
-    const islander = ISLANDERS[winner];
-    resultName.textContent = winner;
-    resultDesc.textContent = islander.desc;
+    const variant = STRAWBERINA_VARIANTS[winner];
+    resultName.textContent = variant.fullName;
+    resultDesc.textContent = variant.desc;
 
-    // Prefer image; gracefully fall back to emoji if it fails to load
-    resultEmoji.textContent = islander.emoji;
-    if (islander.img) {
+    resultEmoji.textContent = variant.emoji;
+    if (variant.img) {
       const probe = new Image();
       probe.onload = () => {
-        resultImg.src = islander.img;
-        resultImg.alt = winner;
+        resultImg.src = variant.img;
+        resultImg.alt = variant.fullName;
         resultImg.style.display = 'block';
         resultEmoji.style.display = 'none';
       };
@@ -237,7 +134,7 @@ const ISLANDERS = {
         resultImg.style.display = 'none';
         resultEmoji.style.display = 'block';
       };
-      probe.src = islander.img;
+      probe.src = variant.img;
     } else {
       resultImg.style.display = 'none';
       resultEmoji.style.display = 'block';
@@ -245,7 +142,7 @@ const ISLANDERS = {
 
     const slug = winner.toLowerCase();
     const url = encodeURIComponent(`${window.location.origin}/result/${slug}.html`);
-    const text = encodeURIComponent(`I got ${winner} ${islander.emoji}\nWhich one are you?`);
+    const text = encodeURIComponent(`I got ${variant.fullName} ${variant.emoji}\nWhich Strawberina are you?`);
     shareBtn.href = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
 
     show('result');
@@ -378,3 +275,48 @@ const countObserver = new IntersectionObserver(
   { threshold: 0.4 }
 );
 countEls.forEach((el) => countObserver.observe(el));
+
+// ========= COPY CONTRACT =========
+document.querySelectorAll('.btn-copy').forEach((btn) => {
+  btn.addEventListener('click', async () => {
+    const text = btn.dataset.copy;
+    if (!text) return;
+    try {
+      await navigator.clipboard.writeText(text);
+      btn.classList.add('copied');
+      btn.textContent = 'Copied!';
+      showToast('Contract copied 🍓');
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        btn.textContent = 'Copy';
+      }, 1600);
+    } catch {
+      showToast('Copy failed — select manually');
+    }
+  });
+});
+
+// ========= TOAST =========
+const toast = document.getElementById('toast');
+let toastTimer;
+function showToast(msg) {
+  if (!toast) return;
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 2000);
+}
+
+// ========= REVEAL ON SCROLL =========
+const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        observer.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+);
+document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
