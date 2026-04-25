@@ -74,6 +74,7 @@ const STRAWBERINA_VARIANTS = {
   const resultName = document.getElementById('quiz-result-name');
   const resultDesc = document.getElementById('quiz-result-desc');
   const shareBtn = document.getElementById('quiz-share');
+  const downloadBtn = document.getElementById('quiz-download');
 
   let step = 0;
   const scores = {};
@@ -144,6 +145,14 @@ const STRAWBERINA_VARIANTS = {
     const url = encodeURIComponent(`${window.location.origin}/#quiz`);
     const text = encodeURIComponent(`I got ${variantTitle} ${variant.emoji}\nWhich $Strawberina are you?`);
     shareBtn.href = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+
+    if (downloadBtn && variant.img) {
+      downloadBtn.href = variant.img;
+      downloadBtn.setAttribute('download', `Strawberina_${winner}.png`);
+      downloadBtn.style.display = '';
+    } else if (downloadBtn) {
+      downloadBtn.style.display = 'none';
+    }
 
     show('result');
   }
