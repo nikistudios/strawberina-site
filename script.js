@@ -56,6 +56,14 @@ const STRAWBERINA_VARIANTS = {
   savage:      { fullName: "Savage Strawberina",     emoji: "😈", img: "images/variants/savage.png",      desc: "Doesn't text first. Doesn't text second. Has receipts, screenshots, and a plan. Don't test the queen." },
 };
 
+// Preload variant images so they're cached when result reveals (no emoji flash)
+Object.values(STRAWBERINA_VARIANTS).forEach((v) => {
+  if (v.img) {
+    const preload = new Image();
+    preload.src = v.img;
+  }
+});
+
 (function initQuiz() {
   const card = document.getElementById('quiz-card');
   if (!card) return;
@@ -122,22 +130,19 @@ const STRAWBERINA_VARIANTS = {
     resultName.textContent = variant.fullName;
     resultDesc.textContent = variant.desc;
 
-    resultEmoji.textContent = variant.emoji;
     if (variant.img) {
-      const probe = new Image();
-      probe.onload = () => {
-        resultImg.src = variant.img;
-        resultImg.alt = variant.fullName;
-        resultImg.style.display = 'block';
-        resultEmoji.style.display = 'none';
-      };
-      probe.onerror = () => {
+      resultImg.src = variant.img;
+      resultImg.alt = variant.fullName;
+      resultImg.style.display = 'block';
+      resultEmoji.style.display = 'none';
+      resultImg.onerror = () => {
         resultImg.style.display = 'none';
+        resultEmoji.textContent = variant.emoji;
         resultEmoji.style.display = 'block';
       };
-      probe.src = variant.img;
     } else {
       resultImg.style.display = 'none';
+      resultEmoji.textContent = variant.emoji;
       resultEmoji.style.display = 'block';
     }
 
