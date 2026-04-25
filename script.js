@@ -142,8 +142,8 @@ const STRAWBERINA_VARIANTS = {
     }
 
     const variantTitle = variant.fullName.replace('Strawberina', '$Strawberina');
-    const url = encodeURIComponent(`${window.location.origin}/#quiz`);
-    const text = encodeURIComponent(`I got ${variantTitle} ${variant.emoji}\nWhich $Strawberina are you?`);
+    const url = encodeURIComponent(window.location.origin);
+    const text = encodeURIComponent(`I got ${variantTitle} ${variant.emoji}\nWhich one are you?`);
     shareBtn.href = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
 
     if (downloadBtn && variant.img) {
